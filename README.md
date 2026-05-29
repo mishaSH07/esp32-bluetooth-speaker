@@ -1,31 +1,31 @@
-# Self-Hosted Networking Server (Node.js)
+# ESP32 Bluetooth Speaker
 
-A locally-hosted web server built on a desktop PC, serving a website with text,
-images, and video over a local network. Built as a computer engineering project
-covering server setup, networking, and web hosting fundamentals.
+A Bluetooth speaker built from scratch around an ESP32 microcontroller, with an
+RGB LED matrix display that reacts to connection state. Built as a 3-person
+Grade 12 engineering capstone.
+
+## Team & roles
+- **Misha** — Bluetooth audio (A2DP sink + I2S output)
+- **Ricky** — 32x16 RGB LED matrix control & animations
+- **Luke** — amplifier, speaker output & wiring
 
 ## What it does
-- Serves a static website using Node.js + Express
-- Hosts text, image, and video content
-- Accessible on the local network (LAN) from other devices
+- Pairs over Bluetooth and receives audio streamed from a phone (A2DP)
+- Outputs audio through the ESP32's built-in DAC via I2S
+- Drives an RGB LED matrix that shows a "disconnected" scroll or a
+  reactive animation when connected
+
+## Hardware
+- ESP32 dev board
+- 32x16 RGB LED panel
+- 9V power supply, breadboard, resistors (1k / 560 ohm), NPN transistor
 
 ## Tech & concepts
-- **Node.js / Express** for the web server
-- **Linux Mint** as the host OS
-- **Port forwarding** and router configuration for network access
-- **BIOS/system optimization** for stable always-on hosting
+- Embedded **C++** (Arduino framework, built with PlatformIO)
+- **A2DP** Bluetooth audio sink (pschatzmann/ESP32-A2DP library)
+- **I2S** audio output to the built-in DAC
+- **FreeRTOS** task scheduling (LED animation runs on a separate core)
 
-## Running it
-```bash
-npm install express
-node server.js
-```
-Then open `http://localhost:6942` in your browser. To reach it from another
-device on the same network, find the server's IPv4 address and visit
-`http://<server-ip>:6942`.
-
-## Possible improvements
-- External access via DuckDNS
-- Image compression and caching for faster load times
-
-> Originally built as a Grade 12 computer engineering project.
+## Build
+Built with [PlatformIO](https://platformio.org/). Open the project, connect an
+ESP32, and upload. See `platformio.ini` for board config.
